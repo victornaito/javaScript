@@ -1,0 +1,32 @@
+<html>
+    <meta charset="UTF-8">
+    <h1>Teste do metodo debounce</h1>
+    <body>
+        <button id="btn-enviar">Enviar</button>
+        <script>
+
+            function loadData(){
+                fetch('http://httpbin.org/ip')
+                .then((res) => res.json)
+                .then((json) => console.log(json.origin));
+            }
+
+            function fn() {
+                console.log('Botao clicado') 
+             }
+
+            function debounce(fn, timeout){
+                let timer = null
+
+                return function(){
+                    timer = setTimeout(() => {
+                        fn()
+                    }, timeout)
+                };
+
+            }
+            const button = document.getElementById('btn-enviar')
+            button.addEventListener('click', debounce(loadData, 2000))
+        </script>
+    </body>
+</html>
